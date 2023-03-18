@@ -68,7 +68,7 @@ public class BookController {
         }
     }
 
-    @PostMapping("/mark/{id}")
+    @PutMapping("/mark/{id}")
     public ResponseEntity<Book> markBookAsTaken(@PathVariable Long id) {
         Book book = bookService.getBookById(id);
 
