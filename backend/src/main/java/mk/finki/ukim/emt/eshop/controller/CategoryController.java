@@ -13,7 +13,7 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/api/categories")
 public class CategoryController {
-    @GetMapping
+    @GetMapping("/list")
     public List<Category> getAllCategories() {
         return Arrays.asList(Category.values());
     }
