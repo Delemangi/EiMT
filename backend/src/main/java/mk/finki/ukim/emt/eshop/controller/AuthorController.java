@@ -1,7 +1,7 @@
 package mk.finki.ukim.emt.eshop.controller;
 
 import mk.finki.ukim.emt.eshop.model.Author;
-import mk.finki.ukim.emt.eshop.service.AuthorService;
+import mk.finki.ukim.emt.eshop.service.IAuthorService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,9 +13,9 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/api/authors")
 public class AuthorController {
-    private final AuthorService authorService;
+    private final IAuthorService authorService;
 
-    public AuthorController(AuthorService authorService) {
+    public AuthorController(IAuthorService authorService) {
         this.authorService = authorService;
     }
 
