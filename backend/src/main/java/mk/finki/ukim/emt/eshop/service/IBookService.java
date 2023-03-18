@@ -2,7 +2,6 @@ package mk.finki.ukim.emt.eshop.service;
 
 import mk.finki.ukim.emt.eshop.model.Book;
 import mk.finki.ukim.emt.eshop.model.dto.BookDto;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
