@@ -1,0 +1,25 @@
+/* css file for the books component */
+
+div.books {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+}
+
+div.books > ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  flex-direction: row;
+}
+
+h1 {
+  text-align: center;
+  display: block;
+  width: 100%;
+}
