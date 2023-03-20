@@ -13,6 +13,11 @@ export async function getAuthors(): Promise<Author[]> {
   return await (await fetch(url)).json();
 }
 
+export async function getBooksByPage(page: number): Promise<Book[]> {
+  const url = `http://localhost:8080/api/books/list/page/${page}`;
+  return await (await fetch(url)).json();
+}
+
 export async function getBookById(id: number): Promise<Book> {
   const url = `http://localhost:8080/api/books/${id}`;
   return await (await fetch(url)).json();

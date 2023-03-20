@@ -2,15 +2,41 @@ import "./Books.css";
 
 import { useEffect, useState } from "react";
 
-import { getBooks } from "../../api";
+import { getBooks, getBooksByPage } from "../../api";
 import Book from "../Book/Book";
 
 export default function Books() {
   const [books, setBooks] = useState<Book[]>([]);
+  const [page, setPage] = useState(0);
+  const [pages, setPages] = useState(0);
 
   useEffect(() => {
-    getBooks().then((books) => setBooks(books));
+    getBooksByPage(page).then((books) => {
+      if (books.length !== 0) {
+        setBooks(books);
+      }
+    });
+  }, [page]);
+
+  useEffect(() => {
+    getBooks().then((books) => {
+      if (books.length !== 0) {
+        setPages(Math.ceil(books.length / 5));
+      }
+    });
   }, []);
+
+  function handlePrevious() {
+    if (page > 0) {
+      setPage(page - 1);
+    }
+  }
+
+  function handleNext() {
+    if (page < pages - 1) {
+      setPage(page + 1);
+    }
+  }
 
   return (
     <div className="books">
@@ -22,6 +48,12 @@ export default function Books() {
           </li>
         ))}
       </ul>
+      <button type="button" onClick={handlePrevious}>
+        ⬅️
+      </button>
+      <button type="button" onClick={handleNext}>
+        ➡️
+      </button>
     </div>
   );
 }
