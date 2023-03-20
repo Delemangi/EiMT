@@ -1,32 +1,34 @@
+const backendUrl = "http://localhost:8080";
+
 export async function getBooks(): Promise<Book[]> {
-  const url = "http://localhost:8080/api/books/list";
+  const url = `${backendUrl}/api/books/list`;
   return await (await fetch(url)).json();
 }
 
 export async function getCategories(): Promise<string[]> {
-  const url = "http://localhost:8080/api/categories/list";
+  const url = `${backendUrl}/api/categories/list`;
   return await (await fetch(url)).json();
 }
 
 export async function getAuthors(): Promise<Author[]> {
-  const url = "http://localhost:8080/api/authors/list";
+  const url = `${backendUrl}/api/authors/list`;
   return await (await fetch(url)).json();
 }
 
 export async function getBooksByPage(page: number): Promise<Book[]> {
-  const url = `http://localhost:8080/api/books/list/page/${page}`;
+  const url = `${backendUrl}/api/books/list/page/${page}`;
   return await (await fetch(url)).json();
 }
 
 export async function getBookById(id: number): Promise<Book> {
-  const url = `http://localhost:8080/api/books/${id}`;
+  const url = `${backendUrl}/api/books/${id}`;
   return await (await fetch(url)).json();
 }
 
 export async function addBook(
   book: Omit<Partial<Book>, "author"> & { author: number }
 ): Promise<Book> {
-  const url = `http://localhost:8080/api/books/add`;
+  const url = `${backendUrl}/api/books/add`;
   return await (
     await fetch(url, {
       method: "POST",
@@ -41,7 +43,7 @@ export async function addBook(
 export async function editBook(
   book: Omit<Book, "author"> & { author: number }
 ): Promise<Book> {
-  const url = `http://localhost:8080/api/books/edit/${book.id}`;
+  const url = `${backendUrl}/api/books/edit/${book.id}`;
   return await (
     await fetch(url, {
       method: "PUT",
@@ -54,7 +56,7 @@ export async function editBook(
 }
 
 export async function deleteBook(id: number): Promise<Book> {
-  const url = `http://localhost:8080/api/books/delete/${id}`;
+  const url = `${backendUrl}/api/books/delete/${id}`;
   return await (
     await fetch(url, {
       method: "DELETE",
@@ -63,7 +65,7 @@ export async function deleteBook(id: number): Promise<Book> {
 }
 
 export async function markBook(id: number): Promise<Book> {
-  const url = `http://localhost:8080/api/books/mark/${id}`;
+  const url = `${backendUrl}/api/books/mark/${id}`;
   return await (
     await fetch(url, {
       method: "PUT",
