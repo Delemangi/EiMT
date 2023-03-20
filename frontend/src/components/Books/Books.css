@@ -23,3 +23,9 @@ h1 {
   display: block;
   width: 100%;
 }
+
+span.page-number {
+  text-align: center;
+  line-height: 2rem;
+  font-size: 1.5rem;
+}

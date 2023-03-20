@@ -51,6 +51,9 @@ export default function Books() {
       <button type="button" onClick={handlePrevious}>
         ⬅️
       </button>
+      <span className="page-number">
+        {page + 1} / {pages}
+      </span>
       <button type="button" onClick={handleNext}>
         ➡️
       </button>
