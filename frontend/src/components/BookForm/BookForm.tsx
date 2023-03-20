@@ -73,6 +73,7 @@ export default function BookForm({
       <label htmlFor="category">Category</label>
       <select
         title="Category"
+        value={category}
         onChange={(e) => setCategory(e.target.value)}
         defaultValue={category}
       >
@@ -85,6 +86,7 @@ export default function BookForm({
       <label htmlFor="author">Author</label>
       <select
         title="Author"
+        value={author}
         onChange={(e) => setAuthor(Number(e.target.value))}
         defaultValue={author}
       >
