@@ -3,6 +3,7 @@ package mk.finki.ukim.emt.eshop.controller;
 import mk.finki.ukim.emt.eshop.model.Book;
 import mk.finki.ukim.emt.eshop.model.dto.BookDto;
 import mk.finki.ukim.emt.eshop.service.IBookService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,11 @@ public class BookController {
     @GetMapping("/list")
     public List<Book> getAllBooks() {
         return bookService.getAllBooks();
+    }
+
+    @GetMapping("/list/page/{page}")
+    public List<Book> getAllBooksByPage(@PathVariable int page) {
+        return bookService.getAllBooksByPage(Pageable.ofSize(5).withPage(page));
     }
 
     @GetMapping("/{id}")

@@ -1,11 +1,10 @@
 package mk.finki.ukim.emt.eshop.service;
 
+import mk.finki.ukim.emt.eshop.model.Author;
 import mk.finki.ukim.emt.eshop.model.Book;
 import mk.finki.ukim.emt.eshop.model.dto.BookDto;
-import mk.finki.ukim.emt.eshop.model.exceptions.AuthorNotFoundException;
-import mk.finki.ukim.emt.eshop.model.exceptions.BookNotFoundException;
-import mk.finki.ukim.emt.eshop.repository.AuthorRepository;
 import mk.finki.ukim.emt.eshop.repository.BookRepository;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,11 +12,11 @@ import java.util.List;
 @Service
 public class BookService implements IBookService {
     private final BookRepository bookRepository;
-    private final AuthorRepository authorRepository;
+    private final IAuthorService authorService;
 
-    public BookService(BookRepository bookRepository, AuthorRepository authorRepository) {
+    public BookService(BookRepository bookRepository, IAuthorService authorService) {
         this.bookRepository = bookRepository;
-        this.authorRepository = authorRepository;
+        this.authorService = authorService;
     }
 
     @Override
@@ -33,25 +32,18 @@ public class BookService implements IBookService {
     @Override
     public Book addBook(BookDto book) {
         Book b = new Book();
-
-        b.setName(book.getName());
-        b.setCategory(book.getCategory());
-        b.setAuthor(authorRepository.findById(book.getAuthor()).orElseThrow(AuthorNotFoundException::new));
-        b.setAvailableCopies(book.getAvailableCopies());
-
-        return bookRepository.save(b);
+        return saveBook(book, b);
     }
 
     @Override
     public Book editBook(Long id, BookDto book) {
-        Book b = bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
+        Book b = bookRepository.findById(id).orElse(null);
 
-        b.setName(book.getName());
-        b.setCategory(book.getCategory());
-        b.setAuthor(authorRepository.findById(book.getAuthor()).orElseThrow(AuthorNotFoundException::new));
-        b.setAvailableCopies(book.getAvailableCopies());
+        if (b == null) {
+            return null;
+        }
 
-        return bookRepository.save(b);
+        return saveBook(book, b);
     }
 
     @Override
@@ -61,10 +53,34 @@ public class BookService implements IBookService {
 
     @Override
     public void markBookAsTaken(Long id) {
-        Book b = bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
+        Book b = bookRepository.findById(id).orElse(null);
+
+        if (b == null) {
+            return;
+        }
 
         b.setAvailableCopies(b.getAvailableCopies() - 1);
 
         bookRepository.save(b);
+    }
+
+    @Override
+    public List<Book> getAllBooksByPage(Pageable withPage) {
+        return bookRepository.findAll(withPage).getContent();
+    }
+
+    private Book saveBook(BookDto book, Book b) {
+        Author a = authorService.getAuthorById(book.getAuthor());
+
+        if (a == null) {
+            return null;
+        }
+
+        b.setName(book.getName());
+        b.setCategory(book.getCategory());
+        b.setAuthor(a);
+        b.setAvailableCopies(book.getAvailableCopies());
+
+        return bookRepository.save(b);
     }
 }

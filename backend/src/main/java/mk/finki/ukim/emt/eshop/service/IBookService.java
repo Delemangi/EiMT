@@ -2,6 +2,7 @@ package mk.finki.ukim.emt.eshop.service;
 
 import mk.finki.ukim.emt.eshop.model.Book;
 import mk.finki.ukim.emt.eshop.model.dto.BookDto;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface IBookService {
     void deleteBook(Long id);
 
     void markBookAsTaken(Long id);
+
+    List<Book> getAllBooksByPage(Pageable withPage);
 }
