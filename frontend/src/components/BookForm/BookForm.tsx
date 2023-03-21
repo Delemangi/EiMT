@@ -64,11 +64,6 @@ export default function BookForm({
     }
   }
 
-  console.log(name);
-  console.log(category);
-  console.log(author);
-  console.log(availableCopies);
-
   return (
     <form>
       <label htmlFor="name">Name</label>
