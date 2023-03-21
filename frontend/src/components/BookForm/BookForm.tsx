@@ -24,6 +24,7 @@ export default function BookForm({
   const [availableCopies, setAvailableCopies] = useState(
     book?.availableCopies || 0
   );
+  const [error, setError] = useState("");
 
   useEffect(() => {
     getBooks().then((books) => setBooks(books));
@@ -44,6 +45,16 @@ export default function BookForm({
   }, [book]);
 
   function handleClick() {
+    if (name === "") {
+      setError("Please set a name.");
+      return;
+    }
+
+    if (availableCopies < 0) {
+      setError("Available copies must be a positive number.");
+      return;
+    }
+
     if (book !== undefined) {
       editBook({ id: book.id, name, category, author, availableCopies }).then(
         () => {
@@ -65,48 +76,51 @@ export default function BookForm({
   }
 
   return (
-    <form>
-      <label htmlFor="name">Name</label>
-      <input
-        type="text"
-        id="name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <label htmlFor="category">Category</label>
-      <select
-        title="Category"
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-      >
-        {categories.map((category) => (
-          <option key={category} value={category}>
-            {category}
-          </option>
-        ))}
-      </select>
-      <label htmlFor="author">Author</label>
-      <select
-        title="Author"
-        value={author}
-        onChange={(e) => setAuthor(Number(e.target.value))}
-      >
-        {authors.map((author) => (
-          <option key={author.id} value={author.id}>
-            {`${author.name} ${author.surname}`}
-          </option>
-        ))}
-      </select>
-      <label htmlFor="availableCopies">Available Copies</label>
-      <input
-        type="number"
-        id="availableCopies"
-        value={availableCopies}
-        onChange={(e) => setAvailableCopies(Number(e.target.value))}
-      />
-      <button type="button" onClick={handleClick}>
-        Submit
-      </button>
-    </form>
+    <>
+      <form>
+        <label htmlFor="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <label htmlFor="category">Category</label>
+        <select
+          title="Category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          {categories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+        <label htmlFor="author">Author</label>
+        <select
+          title="Author"
+          value={author}
+          onChange={(e) => setAuthor(Number(e.target.value))}
+        >
+          {authors.map((author) => (
+            <option key={author.id} value={author.id}>
+              {`${author.name} ${author.surname}`}
+            </option>
+          ))}
+        </select>
+        <label htmlFor="availableCopies">Available Copies</label>
+        <input
+          type="number"
+          id="availableCopies"
+          value={availableCopies}
+          onChange={(e) => setAvailableCopies(Number(e.target.value))}
+        />
+        <button type="button" onClick={handleClick}>
+          Submit
+        </button>
+      </form>
+      {error !== "" && <p className="error">{error}</p>}
+    </>
   );
 }
