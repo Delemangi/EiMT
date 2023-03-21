@@ -13,7 +13,12 @@ export default function Book({ book }: { book: Book }) {
       <p>Available Copies: {book.availableCopies}</p>
       <Link to={`/books/edit/${book.id}`}>Edit</Link>
       <Link to={`/books/delete/${book.id}`}>Delete</Link>
-      <Link to={`/books/mark/${book.id}`}>Mark</Link>
+      <Link
+        to={`/books/mark/${book.id}`}
+        state={{ availableCopies: book.availableCopies }}
+      >
+        Mark
+      </Link>
     </div>
   );
 }
