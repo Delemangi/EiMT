@@ -18,11 +18,11 @@ export default function BookForm({
   const [books, setBooks] = useState<Book[]>([]);
   const book = books.find((book) => book.id === Number(bookId));
   const navigate = useNavigate();
-  const [name, setName] = useState(book?.name || "Unnamed Book");
-  const [category, setCategory] = useState(book?.category || categories[0]);
-  const [author, setAuthor] = useState(book?.author.id || authors[0].id);
+  const [name, setName] = useState(book?.name ?? "Unnamed Book");
+  const [category, setCategory] = useState(book?.category ?? categories[0]);
+  const [author, setAuthor] = useState(book?.author.id ?? authors[0]?.id);
   const [availableCopies, setAvailableCopies] = useState(
-    book?.availableCopies || 0
+    book?.availableCopies ?? 0
   );
   const [error, setError] = useState("");
 
@@ -34,7 +34,7 @@ export default function BookForm({
     if (book === undefined) {
       setName("Unnamed Book");
       setCategory(categories[0]);
-      setAuthor(authors[0].id);
+      setAuthor(authors[0]?.id);
       setAvailableCopies(0);
     } else {
       setName(book.name);
