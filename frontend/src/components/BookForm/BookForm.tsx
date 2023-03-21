@@ -3,20 +3,19 @@ import "./BookForm.css";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { addBook, editBook } from "../../api";
+import { addBook, editBook, getBooks } from "../../api";
 
 export default function BookForm({
-  books,
   categories,
   authors,
   editBookFn,
 }: {
-  books: Book[];
   categories: string[];
   authors: Author[];
   editBookFn: (book: Book) => void;
 }) {
   const bookId = useParams()["book"];
+  const [books, setBooks] = useState<Book[]>([]);
   const book = books.find((book) => book.id === Number(bookId));
   const navigate = useNavigate();
   const [name, setName] = useState(book?.name || "");
@@ -25,6 +24,10 @@ export default function BookForm({
   const [availableCopies, setAvailableCopies] = useState(
     book?.availableCopies || 0
   );
+
+  useEffect(() => {
+    getBooks().then((books) => setBooks(books));
+  }, []);
 
   useEffect(() => {
     if (book === undefined) {
@@ -60,6 +63,11 @@ export default function BookForm({
       });
     }
   }
+
+  console.log(name);
+  console.log(category);
+  console.log(author);
+  console.log(availableCopies);
 
   return (
     <form>

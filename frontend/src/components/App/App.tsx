@@ -52,7 +52,6 @@ export default function App() {
               path="/books/add"
               element={
                 <BookForm
-                  books={books}
                   categories={categories}
                   authors={authors}
                   editBookFn={editBook}
@@ -63,7 +62,6 @@ export default function App() {
               path="/books/edit/:book"
               element={
                 <BookForm
-                  books={books}
                   categories={categories}
                   authors={authors}
                   editBookFn={editBook}
