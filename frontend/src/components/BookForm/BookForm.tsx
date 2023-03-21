@@ -75,7 +75,6 @@ export default function BookForm({
         title="Category"
         value={category}
         onChange={(e) => setCategory(e.target.value)}
-        defaultValue={category}
       >
         {categories.map((category) => (
           <option key={category} value={category}>
@@ -88,7 +87,6 @@ export default function BookForm({
         title="Author"
         value={author}
         onChange={(e) => setAuthor(Number(e.target.value))}
-        defaultValue={author}
       >
         {authors.map((author) => (
           <option key={author.id} value={author.id}>
