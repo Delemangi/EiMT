@@ -3,6 +3,9 @@ package mk.finki.ukim.emt.eshop.model;
 import jakarta.persistence.*;
 import lombok.*;
 import mk.finki.ukim.emt.eshop.model.enums.Category;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.util.ProxyUtils;
 
 import java.util.Objects;
@@ -22,6 +25,7 @@ public class Book {
     private Category category;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Author author;
 
     private int availableCopies;
