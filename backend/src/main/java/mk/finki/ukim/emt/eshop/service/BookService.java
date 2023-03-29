@@ -76,10 +76,10 @@ public class BookService implements IBookService {
             return null;
         }
 
-        b.setName(book.getName());
+        b.setName(book.getName().isEmpty() ? "Unnamed Book" : book.getName());
         b.setCategory(book.getCategory());
         b.setAuthor(a);
-        b.setAvailableCopies(book.getAvailableCopies());
+        b.setAvailableCopies(book.getAvailableCopies() >= 0 ? book.getAvailableCopies() : 0);
 
         return bookRepository.save(b);
     }
