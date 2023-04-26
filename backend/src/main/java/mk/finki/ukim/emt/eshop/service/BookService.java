@@ -59,7 +59,7 @@ public class BookService implements IBookService {
             return;
         }
 
-        b.setAvailableCopies(b.getAvailableCopies() - 1);
+        b.setAvailableCopies(b.getAvailableCopies() == 0 ? 0 : b.getAvailableCopies() - 1);
 
         bookRepository.save(b);
     }
